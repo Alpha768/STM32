@@ -1,0 +1,12 @@
+---- SYSCTL_CHECK_ONLINE Matches (8 in 7 files) ----
+ADC.c (source\adc):	{SYSCTL_CHECK_ONLINE,   CheckOnline},
+Device.h (include):#define SYSCTL_CHECK_ONLINE (SYS_CTL_MASK|0x03)
+Device.h (include):#define DeviceRegister(pDevice,pPatchTable,...) DeviceControl(SYSCTL_CHECK_ONLINE|REGISTER_FLAG,pDevice,pPatchTable,##__VA_ARGS__)
+KEY.c (source):	{SYSCTL_CHECK_ONLINE,   CheckOnline},
+PWM.c (source\pwm):	{SYSCTL_CHECK_ONLINE,   CheckOnline},
+Serial.c (source\uart):	{SYSCTL_CHECK_ONLINE,   CheckOnline},
+SPI.c (source\spi):	{SYSCTL_CHECK_ONLINE,   CheckOnline},
+STM32F_Flash.c (source\store):	{SYSCTL_CHECK_ONLINE,   CheckOnline},
+---- SYSCTL_CHECK_ONLINE Search Errors Encountered (1) ----
+The following 1 files could not be processed:
+K:\STM32F103_demo\Project\MDK\JLinkLog.txt : File could not be opened.
