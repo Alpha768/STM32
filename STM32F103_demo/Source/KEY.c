@@ -203,6 +203,8 @@ static U32 CheckOnline(U32 cmd,va_list arg_ptr)
 	f_KeyRelease=0;
 	GetKeyValue=va_arg(arg_ptr, _FN_KEYVALUE_);
 	QueueTimerCreate(10,TRUE,TRUE,FALSE,KeyScan);
+	
+	printf("STM32F Key Online !!!\n");
 	return TRUE;
 }
 

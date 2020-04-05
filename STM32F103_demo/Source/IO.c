@@ -149,10 +149,19 @@ void InitGPIO(void)
 	InitPortBit(PORTC,7,OUTPUT_PUSH_PULL,0);
 	InitPortBit(PORTC,8,OUTPUT_PUSH_PULL,0);	
 	InitPortBit(PORTC,9,OUTPUT_PUSH_PULL,0);
+
+	//SetPortBit(PORTC,6);
+	//SetPortBit(PORTC,7);
+	//SetPortBit(PORTC,8);
+	//SetPortBit(PORTC,9);
 }
 
 static unsigned char f_Flicker=0;
 
+//LED1 PC6
+//LED2 PC7
+//LED3 PC8
+//LED4 PC9
 
 void LedFlicker(void)
 {
@@ -163,12 +172,12 @@ void LedFlicker(void)
 	//printf("LedFlicker  :%d\n",f_Flicker);
 	if(f_Flicker)	
 	{
-		SetPortBit(PORTC,9);//set PC7 green led
+		//SetPortBit(PORTC,9);//set PC7 green led
 		//printf("LedFlicker SetPortBit\n");
 	}
 	else
 	{
-		ClrPortBit(PORTC,9);//Clr PC7 green led
+		//ClrPortBit(PORTC,9);//Clr PC7 green led
 		//printf("LedFlicker ClrPortBit\n");
 	}
 	

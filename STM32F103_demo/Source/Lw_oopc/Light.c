@@ -30,10 +30,10 @@ static void set_light(void *t, S16 flag)
 	printf("Light set_light\n");
 
 	
-	if(cthis->state)
-		SetPortBit(PORTC,8);//set PC7 green led
-	else
-		ClrPortBit(PORTC,8);//set PC7 green led
+//	if(cthis->state)
+//		SetPortBit(PORTC,8);//set PC7 green led
+//	else
+//		ClrPortBit(PORTC,8);//set PC7 green led
 }
 
 CTOR(Light)

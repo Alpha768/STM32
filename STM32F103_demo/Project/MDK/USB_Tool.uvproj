@@ -350,7 +350,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Include;..\..\Include\USB;..\..\Include\UART;..\..\Include\SPI;..\..\Include\I2C;..\..\Include\PWM;..\..\Include\STM32F10x;..\..\Include\ADC;..\..\Include\LCD;..\..\Include\OLED;..\..\Include\Lw_oopc;..\..\Source;..\..\Include\Remoter</IncludePath>
+              <IncludePath>..\..\Include;..\..\Include\USB;..\..\Include\UART;..\..\Include\SPI;..\..\Include\I2C;..\..\Include\PWM;..\..\Include\STM32F10x;..\..\Include\ADC;..\..\Include\LCD;..\..\Include\OLED;..\..\Include\Lw_oopc;..\..\Include\Panel;..\..\Include\Remoter;..\..\Source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -618,6 +618,36 @@
               <FileName>oled.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Source\OLED\oled.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Panel</GroupName>
+          <Files>
+            <File>
+              <FileName>Panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Source\Panel\Panel.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Irmp</GroupName>
+          <Files>
+            <File>
+              <FileName>irmp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Source\Irmp\irmp.c</FilePath>
+            </File>
+            <File>
+              <FileName>irmpextlog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Source\Irmp\irmpextlog.c</FilePath>
+            </File>
+            <File>
+              <FileName>main_red.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Source\Irmp\main_red.c</FilePath>
             </File>
           </Files>
         </Group>

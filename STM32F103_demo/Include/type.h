@@ -43,6 +43,10 @@ typedef long long          S64;
 typedef unsigned long long U64;
 typedef unsigned char      BIT;
 typedef unsigned int       BOOL;
+
+typedef unsigned char                   uint8_t;
+typedef unsigned short                  uint16_t;
+
 #define COUNTOF( array )    (sizeof(array) / sizeof((array)[0]))
 #define _PARAMETER_UNUSED_(para) (para=para)
 

@@ -37,12 +37,15 @@
 #include "Ram.h"
 #include "KEY.h"
 #include "Remoter.h"
+#include "Panel.h"
 #include "Device.h"
 #include "AES.h"
 #include "lw_oopc.h"
 //#include "./Lw_oopc/Light.h"
 //#include "./Lw_oopc/Switch.h"
 #include "oled.h"
+#include "irmp.h"
+
 
 #define USE_UART1
 //#define USE_UART2

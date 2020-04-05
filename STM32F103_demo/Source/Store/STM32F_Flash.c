@@ -247,7 +247,7 @@ static U32 CheckOnline(U32 cmd,va_list arg_ptr)
 {
 	_PARAMETER_UNUSED_(cmd);
   _PARAMETER_UNUSED_(arg_ptr);
-  //PRINTF("STM32F FLASH Online !!!\n",0);
+  printf("STM32F FLASH Online !!!\n");
 	return TRUE;
 }
 

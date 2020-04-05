@@ -33,20 +33,24 @@ extern "C" {
 #define KEY_CTL_MASK			0x030000
 #define SPI_CTL_MASK			0x040000
 #define UART_CTL_MASK			0x050000
-#define STORE_CTL_MASK		0x060000
+#define STORE_CTL_MASK		    0x060000
+#define PANEL_CTL_MASK		    0x070000
+
 	
 #define SYS_CTL_MASK			0x3F0000
 //*********************************************
 //class
-#define  USR_CLASS		   (USR_CTL_MASK>>16)
+#define  USR_CLASS		    (USR_CTL_MASK>>16)
 #define  ADC_CLASS     		(ADC_CTL_MASK>>16)
-#define  PWM_CLASS        (PWM_CTL_MASK>>16)
-#define  KEY_CLASS	    (KEY_CTL_MASK>>16)
+#define  PWM_CLASS          (PWM_CTL_MASK>>16)
+#define  KEY_CLASS	        (KEY_CTL_MASK>>16)
 #define  SPI_CLASS			(SPI_CTL_MASK>>16)
 #define  UART_CLASS			(UART_CTL_MASK>>16)
 #define  STORE_CLASS		(STORE_CTL_MASK>>16)
+#define  PANEL_CLASS		(PANEL_CTL_MASK>>16)
 
-#define  MAX_CLASS      (STORE_CLASS+1)
+
+#define  MAX_CLASS      (PANEL_CLASS+1)
 //*********************************************
 //sys common command
 #define SYSCTL_POWER        (SYS_CTL_MASK|0x00)
@@ -101,7 +105,12 @@ extern "C" {
 //store command
 #define STORECTL_WRITE               (STORE_CTL_MASK|0x01)
 #define STORECTL_READ                (STORE_CTL_MASK|0x02)
-#define STORECTL_PROTECT						 (STORE_CTL_MASK|0x03)
+#define STORECTL_PROTECT			 (STORE_CTL_MASK|0x03)
+//*****************************************************************
+//panel command
+#define PANELCTL_WRITE               (PANEL_CTL_MASK|0x01)
+#define PANELCTL_READ                (PANEL_CTL_MASK|0x02)
+#define PANELCTL_PROTECT			 (PANEL_CTL_MASK|0x03)
 //*****************************************************************
 
 #define PATCH_BEFORE              0x010000
@@ -196,6 +205,7 @@ extern DEVICE f_KeyBoard_Driver;
 extern DEVICE f_STM32F_SPI_Driver;
 extern DEVICE f_STM32F_UART_Driver;
 extern DEVICE f_STM32F_FLASH_Driver;
+extern DEVICE f_STM32F_PANEL_Driver;
 
 extern void InitDevice(void);
 
