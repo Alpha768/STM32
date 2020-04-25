@@ -35,7 +35,9 @@
 #include "IO.h"
 #include "ADC.h"
 #include "Ram.h"
-#include "KEY.h"
+#include "KeyDef.h"
+#include "Key.h"
+#include "Keypad.h"
 #include "Remoter.h"
 #include "Panel.h"
 #include "Device.h"
@@ -45,10 +47,22 @@
 //#include "./Lw_oopc/Switch.h"
 #include "oled.h"
 #include "irmp.h"
-
+#include "IR.h"
 
 #define USE_UART1
 //#define USE_UART2
+
+#define ENABLE_IR
+
+
+typedef enum
+{
+    eBOOT_STATUS_NONE,  // Not valid
+    eBOOT_STATUS_ACON,  // AC
+    eBOOT_STATUS_DCOFF, // AC -> enter DC off
+    eBOOT_STATUS_DCON,  // DC wakeup
+    eBOOT_STATUS_DPMSON,// DPMS wakeup
+}eBOOT_STATUS_TYPE;
 
 
 #endif

@@ -10,7 +10,7 @@ CLASS(Switch)
 	Light* light_obj;
 	void (*init)(void*);
 	S16 (*get_state)(void*);
-	void (*set_switch)(void*);
+	void (*set_switch)(void*,U8 u8LedType);
 
 };
 

@@ -131,7 +131,7 @@ void InitGPIO(void)
 	//RCC->APB2ENR |= RCC_APB2ENR_IOPAEN; // enable clock for GPIOA
 	
 	//GPIOA->CRL&=0xFF0FFFFF;// set PA5 for ADC input
-	//InitPortBit(PORTA,5,INPUT_ANALOG,1);// set PA5 for ADC input
+	InitPortBit(PORTA,5,INPUT_ANALOG,1);// set PA5 for ADC input
 	
 	//RCC->APB2ENR |= RCC_APB2ENR_IOPBEN; // enable clock for GPIOB
 	//RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
@@ -144,6 +144,9 @@ void InitGPIO(void)
 	//GPIOC->CRL&=0xF0FFFFFF;
 	//GPIOC->CRL|=0x08000000;
 
+	
+	InitPortBit(PORTC,0,INPUT_ANALOG,1);// set PC0 for ADC input
+	InitPortBit(PORTC,1,INPUT_ANALOG,1);// set PC1 for ADC input
 	
 	InitPortBit(PORTC,6,OUTPUT_PUSH_PULL,0);
 	InitPortBit(PORTC,7,OUTPUT_PUSH_PULL,0);

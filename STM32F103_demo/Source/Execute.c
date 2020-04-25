@@ -1,9 +1,14 @@
 
 #include "Include.h"
+#include "Light.h"
+#include "Switch.h"
 
 #define MAX_CURRENT  Target.UserSetting.max_current//40//50
 #define MIN_CURRENT  Target.UserSetting.min_current//16
 #define ADJ_CURRENT  (MAX_CURRENT-MIN_CURRENT)
+
+Light *light;// = (Light*)Light_new();
+Switch *wall;// = (Switch*)Switch_new();
 
 void SetCurrent(U8 Percent)
 {
@@ -17,30 +22,92 @@ void SetCurrent(U8 Percent)
 void Effect_Usr_Cfg(void)
 {
 	//SetCurrent(usr_EEPROM.current);
+
+	light = (Light*)Light_new();
+	wall = (Switch*)Switch_new();
+	
+	light->init(light);
+	printf("Light Init\n");
+	wall->light_obj = light;
+	printf("Switch  get Obj\n");
+	printf("Switch  set switch\n");
+	printf("Alpha Test Here\n");
 }
 
+void PowerSystem(void)
+{
+	if(g_SystemMode==MODE_NORMAL)
+	{
+		printf("PowerOff !!\n" );
+		g_SystemMode = MODE_STANBY;
+
+	}
+	else
+	{
+		printf("PowerOn !!\n" );
+		g_SystemMode = MODE_NORMAL;
+
+	}
+
+}
 
 void PowerOn(void)
 {
+	printf("PowerOn !!\n" );
+
 	g_SystemMode = MODE_NORMAL;
 }
 
 void PowerOff(void)
 {
+	printf("PowerOff !!\n" );
+
 	g_SystemMode = MODE_STANBY;
 }
 
+void ExecSelect(void)
+{
+	printf("ExecSelect !!\n" );
+	//wall->set_switch(wall,LED1);
+
+}
+
+void ExecExit(void)
+{
+	printf("ExecExit !!\n" );
+	wall->set_switch(wall,LED2);
+
+}
+
+void ExecLeft(void)
+{
+	printf("ExecLeft !!\n" );
+	wall->set_switch(wall,LED3);
+
+}
+
+void ExecRight(void)
+{
+	printf("ExecRight !!\n" );
+	wall->set_switch(wall,LED4);
+
+}
+
+
 COMMAND_TABLE	CommandTable[] = 
 {
-	{ KEY_POWER,     STATUS_FIRST,MODE_STANBY,PowerOn},
-	{ KEY_POWER,     STATUS_FIRST,MODE_NORMAL,PowerOff},
-	{ 0, 0, 0 } 
+	{ KEY_POWER,     STATUS_FIRST,MODE_NORMAL,PowerSystem},
+	{ KEY_MINUS,	     STATUS_FIRST,MODE_NORMAL,ExecLeft},
+	{ KEY_PLUS,	 STATUS_FIRST,MODE_NORMAL,ExecRight},
+	{ KEY_MENU,	     STATUS_FIRST,MODE_NORMAL,ExecSelect},
+	{ KEY_EXIT,	     STATUS_FIRST,MODE_NORMAL,ExecExit},
+	{ 0, 0, 0,0 } 
 } ;
 
 
 void ExeUsrCMD( void )
 {
-	DeviceControl(KEYCTL_PROCESS,CommandTable);
+	DeviceControl(KEYCTL_PROCESS,CommandTable);	
 }
 //-----------------------------------------------------------------------------------
 

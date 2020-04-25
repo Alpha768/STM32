@@ -28,10 +28,12 @@ EXTERN BOOLEAN ExeUartCmdBusy;
 #define BASE_TIME 10
 
 EXTERN U8	g_SystemMode	;
-	#define	MODE_NORMAL	  0x0001
-	#define	MODE_STANBY		0x0002
-	#define MODE_ALL  (MODE_NORMAL|MODE_STANBY)
 
+    #define MODE_NORMAL 	0x01
+	#define	MODE_STANBY		0x02
+  	#define MODE_Mask  (MODE_NORMAL|MODE_STANBY)
+
+#define SET_SYSTEM_MODE(x)   ((((~x)&0xFF)^MODE_Mask)&MODE_Mask)
 
 //EXTERN U32 m_BaseTick;
 //EXTERN BOOLEAN f_1000_ms;

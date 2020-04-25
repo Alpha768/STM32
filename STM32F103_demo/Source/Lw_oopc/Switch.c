@@ -18,7 +18,7 @@ static S16 get_state(void *t)
 	return cthis->state;
 }
 
-static void set_switch(void *t)
+static void set_switch(void *t,U8 u8LedType)
 {
 	S16 st;
 	Light *light;
@@ -27,12 +27,12 @@ static void set_switch(void *t)
 	printf("Switch set_switch\n");
 	cthis->state = !(cthis->state);
 	light = cthis->light_obj;
-	st = light->get_state(light);
+	st = light->get_state(light,u8LedType);
 
 	if(st == 1)
-		light->set_light(light,0);
+		light->set_light(light,0,u8LedType);
 	else
-		light->set_light(light,1);
+		light->set_light(light,1,u8LedType);
 
 }
 

@@ -31,10 +31,12 @@ extern "C" {
 #define ADC_CTL_MASK			0x010000
 #define PWM_CTL_MASK			0x020000
 #define KEY_CTL_MASK			0x030000
-#define SPI_CTL_MASK			0x040000
-#define UART_CTL_MASK			0x050000
-#define STORE_CTL_MASK		    0x060000
-#define PANEL_CTL_MASK		    0x070000
+#define IR_CTL_MASK		        0x040000
+#define KEYPAD_CTL_MASK		    0x050000
+#define SPI_CTL_MASK			0x060000
+#define UART_CTL_MASK			0x070000
+#define STORE_CTL_MASK		    0x080000
+#define PANEL_CTL_MASK		    0x090000
 
 	
 #define SYS_CTL_MASK			0x3F0000
@@ -44,6 +46,8 @@ extern "C" {
 #define  ADC_CLASS     		(ADC_CTL_MASK>>16)
 #define  PWM_CLASS          (PWM_CTL_MASK>>16)
 #define  KEY_CLASS	        (KEY_CTL_MASK>>16)
+#define  IR_CLASS		    (IR_CTL_MASK>>16)
+#define  KEYPAD_CLASS		(KEYPAD_CTL_MASK>>16)
 #define  SPI_CLASS			(SPI_CTL_MASK>>16)
 #define  UART_CLASS			(UART_CTL_MASK>>16)
 #define  STORE_CLASS		(STORE_CTL_MASK>>16)
@@ -112,6 +116,16 @@ extern "C" {
 #define PANELCTL_READ                (PANEL_CTL_MASK|0x02)
 #define PANELCTL_PROTECT			 (PANEL_CTL_MASK|0x03)
 //*****************************************************************
+//IR command
+#define IRCTL_PROCESS         (IR_CTL_MASK|0x01)
+#define IRCTL_IRKEYPADSTATUS  (IR_CTL_MASK|0x02)
+#define IRCTL_CLEAN           (IR_CTL_MASK|0x03)
+//*********************************************	
+//Keypad command
+#define KEYPADCTL_PROCESS       (KEYPAD_CTL_MASK|0x01)
+#define KEYPADCTL_KEYPADSTATUS  (KEYPAD_CTL_MASK|0x02)
+#define KEYPADCTL_CLEAN         (KEYPAD_CTL_MASK|0x03)
+//*********************************************	
 
 #define PATCH_BEFORE              0x010000
 #define PATCH_AFTER               0x020000
@@ -202,6 +216,8 @@ extern U32 DeviceControl(U32 cmd,...);
 extern DEVICE f_STM32F_ADC_Driver;
 extern DEVICE f_STM32F_PWM_Driver;
 extern DEVICE f_KeyBoard_Driver;
+extern DEVICE f_STM32F_IR_Driver;
+extern DEVICE f_STM32F_Keypad_Driver;
 extern DEVICE f_STM32F_SPI_Driver;
 extern DEVICE f_STM32F_UART_Driver;
 extern DEVICE f_STM32F_FLASH_Driver;

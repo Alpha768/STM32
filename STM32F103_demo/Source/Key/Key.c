@@ -38,7 +38,6 @@ static U32	g_KeyPressTimer	;
 static U32  g_KeyReleaseTimer;
 
 
-
 static U32 InitKey(U32 cmd,va_list arg_ptr)
 {
 	_PARAMETER_UNUSED_(arg_ptr);
@@ -58,15 +57,18 @@ static U32 InitKey(U32 cmd,va_list arg_ptr)
 static void KeyScan(void)
 {
 	if(GetKeyValue==NULL)
-		m_CurrKey = NO_COMMAND;
+		m_CurrKey = KEY_NOTHING;
 	else
-		m_CurrKey = GetKeyValue() ;
+		m_CurrKey = GetKeyValue();	
+	
 	//--------------------------------------------
-	if(m_CurrKey & 0xff00)// for spec key
+	if(m_CurrKey)// for spec key
 	{
+		printf(" m_CurrKey=0x%x\n",m_CurrKey);
 		m_CurrKey = m_CurrKey & 0xff;
-		if(m_CurrKey != NO_COMMAND)
+		if(m_CurrKey != KEY_NOTHING)
 		{
+		
 			g_KeyCommand = m_CurrKey;		
 			f_KeyCommand = 1 ;				
 			f_KeyRepeat = 0 ;				
@@ -74,14 +76,16 @@ static void KeyScan(void)
 			g_KeyPressTimer = 0 ;			
 			g_KeyReleaseTimer=0;
 			m_KeyCounter = 0 ;							
-			m_PrevKey = NO_COMMAND ;
+			m_PrevKey = KEY_NOTHING ;
 			f_KeyRelease = 0 ;
+			
+			printf("@@@ m_CurrKey=0x%x\n",m_CurrKey);
 			return;
 		}
 	}
 	//--------------------------------------------
 		
-	if( m_CurrKey == NO_COMMAND )
+	if( m_CurrKey == KEY_NOTHING )
 	{
 		f_DisableKey = 0 ;						// 解除CPU复位后的按键禁止
 		//if(m_KeyCounter >= 100/BASE_TIME)
@@ -92,6 +96,8 @@ static void KeyScan(void)
 	}
 	else if( m_CurrKey == m_PrevKey )		 	// 与上一次读到的键码相同
 	{
+	
+    	printf(" f_DisableKey=0x%x\n",f_DisableKey);
 		if( f_DisableKey == FALSE)					// 检查按键是否被禁止
 		{
 			if( ++m_KeyCounter == 100/BASE_TIME )		// 按键至少稳定100ms才有效
@@ -114,8 +120,11 @@ static void KeyScan(void)
 		}
 		return;
 	}
+
+	
 	if(m_KeyCounter >= 100/BASE_TIME)
 		f_KeyRelease=1;
+	
 	// 检测到不同的按键或无按键
 	m_KeyCounter = 0 ;							// 计数器清0
 	m_PrevKey = m_CurrKey ;
@@ -127,9 +136,19 @@ U32 ProcessKey( U32 cmd,va_list arg_ptr )
 	int Index ;
     _PARAMETER_UNUSED_(cmd);
 	CommandTable=va_arg(arg_ptr, COMMAND_TABLE *);
-	
+
 	f_ReleaseCommand = 0 ;
 	f_FirstCommand = 0;
+	
+	if(f_KeyCommand)
+	printf("$$ f_KeyCommand=0x%x\n", f_KeyCommand);
+
+	if(f_KeyRepeat)
+	printf("## f_KeyCommand=0x%x\n", f_KeyRepeat);
+
+	if(f_KeyRelease)
+	printf("!! f_KeyCommand=0x%x\n", f_KeyRelease);
+
 	
 	if( f_KeyCommand )
 	{
@@ -137,17 +156,22 @@ U32 ProcessKey( U32 cmd,va_list arg_ptr )
 		f_FirstCommand = 1;
 		f_RepeatCommand = 0 ;
 		f_KeyCommand = 0 ;
-		//PRINTF("Fir g_Command=%c\n", &g_Command);
+		if(g_Command)
+		printf("Fir g_Command=0x%x\n", g_Command);
 	}
 	else if( f_KeyRepeat )
 	{
 		g_Command = g_KeyCommand ;
 		f_RepeatCommand = 1 ;
 		f_KeyRepeat = 0 ;
-		//PRINTF("Rep g_Command=%c\n", &g_Command);
+		if(g_Command)
+		printf("Rep g_Command=0x%x\n", g_Command);
 	}
 	else if( f_KeyRelease )
 	{
+	
+    	if(g_Command)
+    	printf("Rel g_Command=0x%x\n", g_Command);
 		g_Command = g_KeyCommand ;
 		f_ReleaseCommand=1;
 		f_KeyRelease=0;
@@ -155,13 +179,16 @@ U32 ProcessKey( U32 cmd,va_list arg_ptr )
 	else
 		return TRUE;
 	
-	if( g_Command == NO_COMMAND )
+	if( g_Command == KEY_NOTHING )
 		return TRUE;
 	
 	Index = -1 ;
+	
 	while( 1 )
 	{
-		Index ++ ;
+		Index ++ ;	
+		
+		printf("Fir ModeMask=0x%x\n", CommandTable[Index].ModeMask & g_SystemMode);
 		if( CommandTable[Index].DoCommand == 0 )
 			break ;
 		if( CommandTable[Index].CommandCode != g_Command )
@@ -172,14 +199,15 @@ U32 ProcessKey( U32 cmd,va_list arg_ptr )
 			continue ;
 		else if( ( (CommandTable[Index].StatusMask & STATUS_RELEASE) == 0 ) && f_ReleaseCommand )
 			continue ;
-		if( ( CommandTable[Index].ModeMask & g_SystemMode ) == 0 )
-			continue ;
+		//if( ( CommandTable[Index].ModeMask & g_SystemMode ) == 0 )
+		//	continue ;
+		
 		CommandTable[Index].DoCommand() ;
 	}
 	f_FirstCommand=0;
 	f_RepeatCommand=0;
 	f_ReleaseCommand=0;
-	g_Command = NO_COMMAND ;
+	g_Command = KEY_NOTHING ;
 	return TRUE;
 }
 
