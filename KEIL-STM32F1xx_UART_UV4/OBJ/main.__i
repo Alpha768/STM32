@@ -1,0 +1,5 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\Drivers\CMSIS\Device\ST\STM32F1xx\Include -I..\Drivers\CMSIS\Device\ST\STM32F1xx -I..\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy -I..\Drivers\STM32F1xx_HAL_Driver\Inc -I..\Inc 
+-I C:\Keil\ARM\RV31\INC 
+-I C:\Keil\ARM\CMSIS\Include 
+-I C:\Keil\ARM\Inc\ST\STM32F10x 
+-DSTM32F103xB -o "..\OBJ\main.o" --omf_browse "..\OBJ\main.crf" --depend "..\OBJ\main.d" "..\Src\main.c"

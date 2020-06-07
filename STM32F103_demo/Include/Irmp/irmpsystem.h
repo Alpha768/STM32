@@ -123,9 +123,9 @@ typedef unsigned short                  uint16_t;
 #  define IRSND_PIC_CCP2                2                                           // PIC C18 RC1 = PWM2 module
 #endif
 
-#ifndef TRUE
-#  define TRUE                          1
-#  define FALSE                         0
+#if 0//ndef TRUE
+#define TRUE                          1
+#define FALSE                         0
 #endif
 
 typedef struct

@@ -1,0 +1,11 @@
+---- HAL_GPIO_EXTI_IRQHandler Matches (10 in 4 files) ----
+STM32.htm (obj):EXTI9_5_IRQHandler &rArr; HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Callback &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+STM32.htm (obj):<P><STRONG><a name="[70]"></a>HAL_GPIO_EXTI_IRQHandler</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, stm32f1xx_hal_gpio.o(.text))
+STM32.htm (obj):<LI>Call Chain = HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Callback &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+STM32.htm (obj):<BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_IRQHandler
+STM32.htm (obj):<LI>Call Chain = EXTI9_5_IRQHandler &rArr; HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Callback &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+STM32.htm (obj):<BR>[Calls]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_IRQHandler
+Stm32f1xx_hal_gpio.c (drivers\stm32f1xx_hal_driver\src):void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin)
+Stm32f1xx_hal_gpio.h (drivers\stm32f1xx_hal_driver\inc):void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
+Stm32f1xx_it.c (src):  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+Stm32f1xx_it.c (src):  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);

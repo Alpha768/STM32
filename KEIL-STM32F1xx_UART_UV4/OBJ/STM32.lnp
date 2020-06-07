@@ -1,0 +1,5 @@
+--cpu Cortex-M3 "..\obj\startup_stm32f103xb.o" "..\obj\stm32f1xx_hal.o" "..\obj\stm32f1xx_hal_cortex.o" "..\obj\stm32f1xx_hal_dma.o" "..\obj\stm32f1xx_hal_flash.o" "..\obj\stm32f1xx_hal_flash_ex.o" "..\obj\stm32f1xx_hal_gpio.o" "..\obj\stm32f1xx_hal_gpio_ex.o" "..\obj\stm32f1xx_hal_pwr.o" "..\obj\stm32f1xx_hal_rcc.o" "..\obj\stm32f1xx_hal_rcc_ex.o" "..\obj\stm32f1xx_hal_tim.o" "..\obj\stm32f1xx_hal_tim_ex.o" "..\obj\stm32f1xx_hal_uart.o" "..\obj\main.o" "..\obj\stm32f1xx_hal_msp.o" "..\obj\stm32f1xx_it.o" "..\obj\system_stm32f1xx.o" 
+--strict --scatter "..\OBJ\STM32.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\STM32.map" -o ..\OBJ\STM32.axf

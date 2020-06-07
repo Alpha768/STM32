@@ -5,7 +5,6 @@
 #include "I2C.h"
 #include "Time.h"
 
-extern U8 f_I2C_Err;
 
 #define SCL_H         GPIOB->BSRR = GPIO_Pin_6
 #define SCL_L         GPIOB->BRR  = GPIO_Pin_6 
@@ -78,7 +77,7 @@ void SetSDA(void)
     //GPIOB->CRL   |=  (0x03UL  << 28);                     // SDA General purpose output Push-pull, max speed 50 MHz
 
 	//if( GetSDA() == 1 ) return ;
-	//for(chr1=0; chr1<255; chr1++)			// 为避免数据传送时受IIC总线上大电容（100-1000P）的影响
+	//for(chr1=0; chr1<255; chr1++)			// ?????????IIC??????(100-1000P)???
 	//	if( GetSDA() == 1 ) break ;
 	IicBusDelay();
 }
@@ -91,7 +90,7 @@ void SetSCL(void)
     // GPIOB->CRL   |=  (0x03UL  << 24);                     // SCL General purpose output Push-pull, max speed 50 MHz
 
 	//if( GetSCL() == 1 ) return ;
-	//for(chr1=0; chr1<255; chr1++)			// 为避免数据传送时受IIC总线上大电容（100-1000P）的影响，以及适应某些反应速度慢的IC在做出反应前拉低SCL的做法
+	//for(chr1=0; chr1<255; chr1++)			// ?????????IIC??????(100-1000P)???,????????????IC????????SCL???
 	//	if( GetSCL() == 1 ) break ;
 	IicBusDelay();
 }
@@ -100,9 +99,9 @@ void SetSCL(void)
 
 void SendACK(U8 ack)
 {
-  if(!ack)  //非应答
+  if(!ack)  //???
     SetSDA();            
-  else    //应答
+  else    //??
     ClrSDA();
   IicBusDelay();
   SetSCL();
@@ -201,7 +200,6 @@ void IicWriteByte( U8 SlaveAddr, U8 RegAddr, U8 RegData )
 {
 	U8 BusTryCnt = TRY_NUM ;
 	U8 f_Error;
-	f_I2C_Err=I2C_BUS_OK;
 	do{
 		f_Error=I2C_BUS_OK;
 		f_Error|=IicStart();
@@ -212,7 +210,6 @@ void IicWriteByte( U8 SlaveAddr, U8 RegAddr, U8 RegData )
 		if(f_Error==I2C_BUS_OK)
 			return;
 	}while((--BusTryCnt)&&(f_Error==I2C_BUS_ERROR));
-	f_I2C_Err=I2C_BUS_ERROR;
 }
 
 U8 IicReadByte( U8 SlaveAddr, U8 RegAddr )
@@ -220,7 +217,6 @@ U8 IicReadByte( U8 SlaveAddr, U8 RegAddr )
 	U8 BusTryCnt = TRY_NUM ;
 	U8 ucData;
 	U8 f_Error;
-	f_I2C_Err=I2C_BUS_OK;
 	do{
 		f_Error=I2C_BUS_OK;
 		f_Error|=IicStart();
@@ -234,7 +230,6 @@ U8 IicReadByte( U8 SlaveAddr, U8 RegAddr )
 	if(f_Error==I2C_BUS_OK)
 	    return ucData;
 	}while((--BusTryCnt)&&(f_Error==I2C_BUS_ERROR));
-	f_I2C_Err=I2C_BUS_ERROR;
 	return 0xff;
 }
 

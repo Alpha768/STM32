@@ -1,0 +1,37 @@
+*** Creating Trace Output File '..\OBJ\STM32.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"..\obj\startup_stm32f103xb.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_cortex.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_dma.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_flash.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_flash_ex.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_gpio.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_gpio_ex.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_pwr.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_rcc.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_rcc_ex.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_tim.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_tim_ex.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_uart.o"'
+### List of Objects: adding '"..\obj\main.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_hal_msp.o"'
+### List of Objects: adding '"..\obj\stm32f1xx_it.o"'
+### List of Objects: adding '"..\obj\system_stm32f1xx.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "..\obj\startup_stm32f103xb.o" "..\obj\stm32f1xx_hal.o" "..\obj\stm32f1xx_hal_cortex.o" "..\obj\stm32f1xx_hal_dma.o" "..\obj\stm32f1xx_hal_flash.o" "..\obj\stm32f1xx_hal_flash_ex.o" "..\obj\stm32f1xx_hal_gpio.o" "..\obj\stm32f1xx_hal_gpio_ex.o" "..\obj\stm32f1xx_hal_pwr.o" "..\obj\stm32f1xx_hal_rcc.o" "..\obj\stm32f1xx_hal_rcc_ex.o" "..\obj\stm32f1xx_hal_tim.o" "..\obj\stm32f1xx_hal_tim_ex.o" "..\obj\stm32f1xx_hal_uart.o" "..\obj\main.o" "..\obj\stm32f1xx_hal_msp.o" "..\obj\stm32f1xx_it.o" "..\obj\system_stm32f1xx.o" 
+--strict --scatter "..\OBJ\STM32.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\STM32.map" -o ..\OBJ\STM32.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '..\OBJ\STM32.axf'
+### ADS-LD Command File: '..\OBJ\STM32.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '..\OBJ\STM32.lnp', Handle=0x00000A60
+### Writing '.lnp' file
+### ADS-LD Command file '..\OBJ\STM32.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

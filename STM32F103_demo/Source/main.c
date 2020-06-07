@@ -39,6 +39,27 @@ static unsigned char GetKeyValue(void)
 	return u8KeypadStatus;
 }
 
+#if 1
+void DisplayShowTestPage(void)
+{
+	//drvSSD1306_UpdateScreen();
+	//WriteDisplayString("OLED Test",DISPLAY_BLUE_COLOR,30,2);
+	//drvSSD1306_DrawString
+
+#if 1
+		PageContainer_t container;
+		container.header = "TestHeader";
+		container.line_one = "Line One";
+		container.line_two = "Line Two";
+		container.line_three = "Line Three";
+		DrawPage(&container);
+#endif	
+//drvSSD1306_DrawString(0,0,"IIC_OLED");		// 从(64,0)开始显示 	// 因为，【Project=】一共8个字符，横向上占用【64】个点
+//DrawFilledCircle();
+
+}
+#endif
+
 //PwmIo SoftPwmIo[]={{PORTC,6},{0xff,0xff}};
 PwmIo SoftPwmIo[]={{0xff,0xff}};
 
@@ -116,12 +137,17 @@ int main (void)
 	printf("Wellcome STM32 System\n");
 	printf("ADC Value=0x%x\n",Value);
 
-	OLED_Init();  //OLED初始化
-	OLED_Clear();
+	//OLED_Init();  //OLED初始化
+	//OLED_Clear();
 	
+	// InitDisplay
+	//InitDisplay();
+	
+    // UpdateDisplay
+	DisplayShowTestPage();
 
 		
-		OLED_ShowString(30,2,"OLED TEST");// OLED TEST
+	//	OLED_ShowString(30,2,"OLED TEST");// OLED TEST
 	//	OLED_ShowCHinese(16,0,0);// 技
 	//	OLED_ShowCHinese(32,0,1);// 新
 	//	OLED_ShowCHinese(48,0,2);// 电

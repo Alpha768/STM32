@@ -44,8 +44,21 @@ typedef unsigned long long U64;
 typedef unsigned char      BIT;
 typedef unsigned int       BOOL;
 
-typedef unsigned char                   uint8_t;
-typedef unsigned short                  uint16_t;
+typedef unsigned char      uint8_t;
+typedef unsigned short     uint16_t;
+typedef unsigned int       uint32_t;
+typedef int                int32_t;
+typedef short              int16_t;
+
+typedef unsigned char BYTE;
+typedef unsigned int WORD;
+typedef unsigned long DWORD;
+typedef signed char Schar;
+typedef signed int Sint;
+typedef signed long Slong;
+
+
+
 
 #define COUNTOF( array )    (sizeof(array) / sizeof((array)[0]))
 #define _PARAMETER_UNUSED_(para) (para=para)

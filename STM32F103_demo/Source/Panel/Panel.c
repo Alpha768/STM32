@@ -5,7 +5,7 @@ static U32 CheckOnline(U32 cmd,va_list arg_ptr)
 {
 	_PARAMETER_UNUSED_(cmd);
      printf("STM32F PANEL Online !!!\n");
-	 
+	 InitDisplay();
 	return TRUE;
 }
 

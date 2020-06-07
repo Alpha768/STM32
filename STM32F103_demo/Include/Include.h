@@ -45,9 +45,15 @@
 #include "lw_oopc.h"
 //#include "./Lw_oopc/Light.h"
 //#include "./Lw_oopc/Switch.h"
-#include "oled.h"
+//#include "oled.h"
 #include "irmp.h"
 #include "IR.h"
+//#include "I2C.h"
+//#include "ssd1306.h"
+#include "fonts.h"
+#include "display.h"
+#include "ssd1306_i2c.h"
+#include "ssd1306_drv.h"
 
 #define USE_UART1
 //#define USE_UART2
