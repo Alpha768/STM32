@@ -111,13 +111,15 @@ void USB_Init (void) {
 	//SetPortBit(PORTC,7);//set PC7
 	//GPIOC->CRL&=0x0FFFFFFF;//
 	//GPIOC->CRL|=0x30000000;//
-	//InitPortBit(PORTC,7,OUTPUT_PUSH_PULL,1);
+	//InitPortBit(PORTA,11,AF_PUSH_PULL,0);
+    InitPortBit(PORTC,13,OUTPUT_PUSH_PULL,0);
 #else
 	//RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;                   // enable clock for GPIOC
   //GPIOC->BRR |=  (1<<13);                    /* reset PC13 */
   //GPIOC->CRH &= ~0x00F00000;                /* clear port PC13 */
   //GPIOC->CRH |=  0x00300000;                /* PC13 General purpose output push-pull, max speed 50 MHz */
 #endif
+ /// SetPortBit(PORTC,7);//Set PC7
 
   RCC->APB1ENR |= (1 << 23);                /* enable clock for USB */
 
@@ -133,16 +135,17 @@ void USB_Init (void) {
  */
 
 void USB_Connect (BOOL con) {
+
 #if 1
   if (con) {
-   // ClrPortBit(PORTC,7);//Clr PC7
+    ClrPortBit(PORTC,13);//Clr PC7
     CNTR = CNTR_FRES;                             /* Force USB Reset */
     CNTR = 0;
     ISTR = 0;                                     /* Clear Interrupt Status */
     CNTR = CNTR_RESETM | CNTR_SUSPM | CNTR_WKUPM; /* USB Interrupt Mask */
   } else {
     CNTR = CNTR_FRES | CNTR_PDWN;                 /* Switch Off USB Device */
-  //  SetPortBit(PORTC,7);//Set PC7
+    SetPortBit(PORTC,13);//Set PC7
   }
 #else
 	  if (con) {
@@ -156,6 +159,8 @@ void USB_Connect (BOOL con) {
 		//GPIOC->BSRR |= 1<<13;                         /* set PC13 */
   }
 #endif
+
+
 }
 
 
