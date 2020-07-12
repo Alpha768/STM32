@@ -144,7 +144,7 @@ int main (void)
 	//InitDisplay();
 	
     // UpdateDisplay
-	DisplayShowTestPage();
+	//DisplayShowTestPage();
 
 		
 	//	OLED_ShowString(30,2,"OLED TEST");// OLED TEST

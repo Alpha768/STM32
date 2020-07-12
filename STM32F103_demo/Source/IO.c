@@ -148,7 +148,7 @@ void InitGPIO(void)
 	InitPortBit(PORTC,0,INPUT_ANALOG,1);// set PC0 for ADC input
 	InitPortBit(PORTC,1,INPUT_ANALOG,1);// set PC1 for ADC input
 	
-	InitPortBit(PORTC,6,OUTPUT_PUSH_PULL,0);
+	//InitPortBit(PORTC,6,INPUT_PULL_UP,0);
 	InitPortBit(PORTC,7,OUTPUT_PUSH_PULL,0);
 	InitPortBit(PORTC,8,OUTPUT_PUSH_PULL,0);	
 	InitPortBit(PORTC,9,OUTPUT_PUSH_PULL,0);
