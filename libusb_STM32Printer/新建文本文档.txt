@@ -1,0 +1,156 @@
+#include "testlibusb.h"
+
+//for Tiny6410
+//#define MY_VID 0x5345
+//#define MY_PID 0x1234
+
+//for 51 USB Board
+#define MY_VID 0x8888
+#define MY_PID 0x0001
+
+// Device configuration and interface id.
+#define MY_CONFIG 1
+#define MY_INTF 0
+
+// Device endpoint 2
+#define EP_IN 0x82
+#define EP_OUT 0x02
+
+// Device of bytes to transfer.
+#define BUF_SIZE 64
+
+//#define DEBUG_GUI
+
+
+
+USB::USB()
+{
+#ifndef DEBUG_GUI
+
+    usb_init(); /* initialize the library */
+    //usb_set_debug(255);
+    usb_find_busses(); /* find all busses */
+    usb_find_devices(); /* find all connected devices */
+
+    if (!(udev = open_dev())) {
+        qDebug("error opening device: %s", usb_strerror());
+        exit(1);
+    } else
+        qDebug("open success: device %04X:%04X opened", MY_VID, MY_PID);
+
+    printf_device_descriptor(&dev->descriptor);
+    my_init_usbdev();
+#endif
+
+    textEdit = new QTextEdit(this);
+    textEdit->setGeometry(50,20,230,40);
+
+    sendButton = new QPushButton(this);
+    sendButton->setText("send");
+    sendButton->setGeometry(130,80,60,40);
+    connect(sendButton,SIGNAL(clicked()),this,SLOT(send_slot()));
+
+    readButton = new QPushButton(this);
+    readButton->setText("read");
+    readButton->setGeometry(130,140,60,40);
+    connect(readButton,SIGNAL(clicked()),this,SLOT(read_slot()));
+
+    recvLabel = new QLabel(this);
+    recvLabel->setText("recv data:");
+    recvLabel->setGeometry(20,180,280,40);
+
+    //my_usb_get_device_list();
+    resize(320, 240);
+}
+
+//关闭程序时被调用
+USB::~USB()
+{
+#ifndef DEBUG_GUI
+    qDebug("close usb device.");
+    usb_close(udev);
+#endif
+}
+
+//打开指定VID、PID的USB设备
+usb_dev_handle *USB::open_dev(void)
+{
+    struct usb_bus *bus;
+
+    for(bus = usb_get_busses(); bus; bus = bus->next) {
+        for(dev = bus->devices; dev; dev = dev->next) {
+            if((dev->descriptor.idVendor == MY_VID) && (dev->descriptor.idProduct == MY_PID)) {
+                    return usb_open(dev);
+            }
+        }
+    }
+    return 0;
+}
+
+//打印USB设备描述符
+void USB::printf_device_descriptor(usb_device_descriptor *desc)
+{
+        qDebug("bLength:             %u",     desc->bLength);
+        qDebug("bDescriptorType:     %02Xh",  desc->bDescriptorType);
+        qDebug("bcdUSB:              %04Xh",  desc->bcdUSB);
+        qDebug("bDeviceClass:        %02Xh",  desc->bDeviceClass);
+        qDebug("bDeviceSubClass:     %02Xh",  desc->bDeviceSubClass);
+        qDebug("bDeviceProtocol:     %02Xh",  desc->bDeviceProtocol);
+        qDebug("bMaxPacketSize0:     %02Xh",  desc->bMaxPacketSize0);
+        qDebug("idVendor:            %04Xh",  desc->idVendor);
+        qDebug("idProduct:           %04Xh",  desc->idProduct);
+        qDebug("bcdDevice:           %04Xh",  desc->bcdDevice);
+        qDebug("iManufacturer:       %u",     desc->iManufacturer);
+        qDebug("iProduct:            %u",     desc->iProduct);
+        qDebug("iSerialNumber:       %u",     desc->iSerialNumber);
+        qDebug("bNumConfigurations:  %u",     desc->bNumConfigurations);
+}
+
+//指定USB设备的配置和接口
+void USB::my_init_usbdev()
+{
+    //libusb规定下面这两个函数必须要被调用
+    if (usb_set_configuration(udev, MY_CONFIG) < 0) {
+        qDebug("error setting config #%d: %s", MY_CONFIG, usb_strerror());
+        exit(1);
+    }
+    if (usb_claim_interface(udev, MY_INTF) < 0) {
+        qDebug("error claiming interface #%d:\n%s", MY_INTF, usb_strerror());
+        exit(1);
+    }
+}
+
+//发送按钮响应函数
+void USB::send_slot()
+{
+    int ret, num;
+    QString s = textEdit->toPlainText();
+    QByteArray a = s.toLatin1();
+    char *tmp = a.data();
+
+    num = s.length();
+    //qDebug()<<"text: "<<tmp<<"length: "<<num;
+    //批量写(同步)
+    ret = usb_bulk_write(udev, EP_OUT, tmp, num, 5000);
+    if (ret < 0) {
+            qDebug("error writing: %s", usb_strerror());
+            exit(1);
+    }
+}
+
+//读按钮响应函数
+void USB::read_slot()
+{
+    int ret;
+    char readdata[BUF_SIZE];
+
+    //批量读(同步)
+    ret = usb_bulk_read(udev, EP_IN, readdata, sizeof(readdata), 5000);
+    if (ret < 0) {
+            qDebug("error reading:%s", usb_strerror());
+            exit(1);
+    }
+    readdata[ret] = '\0';
+    //将接收到的数据显示在Label上
+    recvLabel->setText("recv: " + QLatin1String(readdata));
+}
