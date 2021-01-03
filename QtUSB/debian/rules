@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export QT_SELECT := qt5
+
+%:
+	dh $@ --with pkgkde_symbolshelper
+
+override_dh_auto_configure:
+	qmake QMAKE_STRIP=: PREFIX=/usr
+	
+override_dh_auto_build:
+	dh_auto_build
+	$(MAKE) docs
+
+override_dh_auto_install:
+	dh_auto_install
+	$(MAKE) INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+
+	# Remove libtool-like files
+	rm -f $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+	# Remove private headers and related files, nothing needs them so far.
+	rm -rf $(CURDIR)/debian/tmp/usr/include/*/qt5/QtUsb/*/QtUsb/private
+	rm -f $(CURDIR)/debian/tmp/usr/include/*/qt5/QtUsb/libusb.h
+	rm -f $(CURDIR)/debian/tmp/usr/lib/*/qt5/mkspecs/modules/qt_lib_usb_private.pri
+	rm -rf $(CURDIR)/debian/tmp/usr/lib/*/qt5/examples/usb
+
+override_dh_missing:
+	dh_missing --fail-missing
