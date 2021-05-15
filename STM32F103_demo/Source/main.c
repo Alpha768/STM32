@@ -87,6 +87,7 @@ void RamColdInitialize( void )
 }
 
 
+//SEGGER_RTT_printf(0, "cnt = %d\n",cnt); 	 //RTT打印
 
 
 
@@ -134,8 +135,19 @@ int main (void)
 	// 如果在CPU刚开始工作时就有键盘命令，忽略掉，并禁止键盘直到按键松开
 	DeviceControl(KEYCTL_CLEAN);
 
+	
+    #ifdef SEGGER_RTT
+    /* 配置通道0，上行配置（STM32->RTT Viewer软件） */
+    SEGGER_RTT_ConfigUpBuffer(0, "RTTUP", NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+    
+    /* 配置通道0，下行配置（RTT Viewer软件->STM32） */	 
+    SEGGER_RTT_ConfigDownBuffer(0, "RTTDOWN", NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_SKIP);
+    #endif
+	
+
 	printf("Wellcome STM32 System\n");
 	printf("ADC Value=0x%x\n",Value);
+	//SEGGER_RTT_ConfigUpBuffer(0, NULL, NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_SKIP);
 
 	//OLED_Init();  //OLED初始化
 	//OLED_Clear();

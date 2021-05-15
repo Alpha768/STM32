@@ -160,8 +160,11 @@ void ExeUsbCMD(void)
 	U8 command;
 	U16 Len;
 	U8*p;
+	U8 i;
+
    if(UsbPackageReceive(&p,&Len)==FALSE)
-		 return ;
+		 return ;   
+	 
 	 ExeUsbCmdStatus=STATUS_BUSY;
 	 command=*p;
 	 if(command>=0xf9)
@@ -210,6 +213,20 @@ void ExeUsbCMD(void)
 			 Target.UserSetting.min_current=p[2];
 			 SetCurrent(Target.UserSetting.current);
 			 break;
+		 case USB_CMD_SET_LED:
+		 	if(p[1]==0x01)
+			{
+				SetPortBit(PORTC,7);
+				printf("Set Led\n");
+		 	}
+			else
+			{
+				ClrPortBit(PORTC,7);
+				printf("Clr Led\n");
+			}
+			i=0xAA;
+			UsbPackageTransmit(&i,1);		
+		 	break;
 		 default:
 			 break;
 	 }

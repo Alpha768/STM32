@@ -143,6 +143,7 @@ void InitGPIO(void)
 	//for USB Cable Check
 	//GPIOC->CRL&=0xF0FFFFFF;
 	//GPIOC->CRL|=0x08000000;
+    InitPortBit(PORTC,13,OUTPUT_PUSH_PULL,1);//For USB 
 
 	
 	InitPortBit(PORTC,0,INPUT_ANALOG,1);// set PC0 for ADC input

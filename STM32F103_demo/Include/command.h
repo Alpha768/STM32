@@ -6,6 +6,8 @@
 #define USB_CMD_CURRENT				0x01
 #define USB_CMD_MAX_CURRENT   0x02
 #define USB_CMD_MIN_CURRENT   0x03
+#define USB_CMD_SET_LED       0x04
+
 
 //command iap id
 #define USB_CMD_RUN_BOOT      0xf9

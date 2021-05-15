@@ -28,6 +28,6 @@ void InitGPIO(void);
 void LedFlicker(void);
 void Power(unsigned char OnOff);
 
-#define IO_USB_CABLE  1//GetPortBit(PORTC,6)
+#define IO_USB_CABLE  1//GetPortBit(PORTC,13)
 
 #endif

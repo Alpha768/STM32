@@ -24,6 +24,7 @@
 #include "IAP.h"
 #include "Queue.h"
 #include "serial.h"
+#include "SEGGER_RTT.h"
 
 #include "CRC32.h"
 #include "CRC16.h"
@@ -55,8 +56,9 @@
 #include "ssd1306_i2c.h"
 #include "ssd1306_drv.h"
 
-#define USE_UART1
+//#define USE_UART1
 //#define USE_UART2
+#define SEGGER_RTT 
 
 #define ENABLE_IR
 

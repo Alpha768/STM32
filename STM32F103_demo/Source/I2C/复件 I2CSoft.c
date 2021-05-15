@@ -77,7 +77,7 @@ void SetSDA(void)
     //GPIOB->CRL   |=  (0x03UL  << 28);                     // SDA General purpose output Push-pull, max speed 50 MHz
 
 	//if( GetSDA() == 1 ) return ;
-	//for(chr1=0; chr1<255; chr1++)			// ?????????IIC??????(100-1000P)???
+	//for(chr1=0; chr1<255; chr1++)			// 为避免数据传送时受IIC总线上大电容（100-1000P）的影响
 	//	if( GetSDA() == 1 ) break ;
 	IicBusDelay();
 }
@@ -90,7 +90,7 @@ void SetSCL(void)
     // GPIOB->CRL   |=  (0x03UL  << 24);                     // SCL General purpose output Push-pull, max speed 50 MHz
 
 	//if( GetSCL() == 1 ) return ;
-	//for(chr1=0; chr1<255; chr1++)			// ?????????IIC??????(100-1000P)???,????????????IC????????SCL???
+	//for(chr1=0; chr1<255; chr1++)			// 为避免数据传送时受IIC总线上大电容（100-1000P）的影响，以及适应某些反应速度慢的IC在做出反应前拉低SCL的做法
 	//	if( GetSCL() == 1 ) break ;
 	IicBusDelay();
 }
@@ -99,9 +99,9 @@ void SetSCL(void)
 
 void SendACK(U8 ack)
 {
-  if(!ack)  //???
+  if(!ack)  //非应答
     SetSDA();            
-  else    //??
+  else    //应答
     ClrSDA();
   IicBusDelay();
   SetSCL();

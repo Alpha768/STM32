@@ -112,7 +112,6 @@ void USB_Init (void) {
 	//GPIOC->CRL&=0x0FFFFFFF;//
 	//GPIOC->CRL|=0x30000000;//
 	//InitPortBit(PORTA,11,AF_PUSH_PULL,0);
-    InitPortBit(PORTC,13,OUTPUT_PUSH_PULL,0);
 #else
 	//RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;                   // enable clock for GPIOC
   //GPIOC->BRR |=  (1<<13);                    /* reset PC13 */
@@ -159,8 +158,6 @@ void USB_Connect (BOOL con) {
 		//GPIOC->BSRR |= 1<<13;                         /* set PC13 */
   }
 #endif
-
-
 }
 
 
@@ -208,8 +205,8 @@ void USB_Reset (void) {
  */
 
 void USB_Suspend (void) {
- CNTR |= CNTR_FSUSP;                       /* Force Suspend */
- CNTR |= CNTR_LPMODE;                      /* Low Power Mode */
+  CNTR |= CNTR_FSUSP;                       /* Force Suspend */
+  CNTR |= CNTR_LPMODE;                      /* Low Power Mode */
 }
 
 
@@ -465,8 +462,8 @@ U32 USB_WriteEP (U32 EPNum, U8 *pData, U32 cnt) {
   statusEP = EPxREG(num);
   if ((statusEP & EP_STAT_TX) != EP_TX_STALL) {
     EP_Status(EPNum, EP_TX_VALID);                /* do not make EP valid if it is stalled previously */
+	
   }
-
   return (cnt);
 }
 

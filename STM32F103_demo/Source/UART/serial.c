@@ -313,14 +313,16 @@ int fputc(int ch, FILE *f)
 {      
 	//while((USART1->SR&0X40)==0);//循环发送,直到发送完毕   
         // USART1->DR = (u8) ch;    
-        #ifdef USE_UART1
-        SER_PutChar(UART_CH1,ch);
-	#endif
+#ifdef USE_UART1
+    SER_PutChar(UART_CH1,ch);
+#endif
 	
-	#ifdef USE_UART2
-        SER_PutChar(UART_CH2,ch);
-        #endif
-
+#ifdef USE_UART2
+    SER_PutChar(UART_CH2,ch);
+#endif
+#ifdef SEGGER_RTT
+	SEGGER_RTT_Write( 0, &ch, 1 );
+#endif
 	return ch;
 }
 #ifdef USE_UART1
